@@ -1,0 +1,75 @@
+server:
+     port: 8080
+
+     ssl:
+         enabled: false
+
+         protocol: TLS
+         key-store: c:/cert/new-10-10-2016/SERVER/accpttomcat01srv.jks
+         key-store-password: Aa123456
+         trust-store: c:/cert/new-10-10-2016/SERVER/accpttomcat01srv.jks
+         trust-store-password: Aa123456
+
+         secure: false
+         key-password: Aa123456
+
+
+logging:
+ file: /opt/LDP-NG2.log
+ level:
+   il.co.boj: DEBUG
+   org.springframework.data.mongodb.core.index: OFF
+   com.ulisesbocchio.jasyptspringboot: OFF
+   org.springframwork.data.mongodb.core.MongoTemplate: OFF
+   org.mongodb.driver.cluster: OFF
+   org.apache: OFF
+   org.slf4j: OFF
+
+ pattern:
+  console: '%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %C{1}:%M:%L - %m%n'
+  file:    '%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %C{1}:%M:%L - %m%n'
+
+
+
+
+spring:
+ datasource.driverClassName: com.mongodb.Mongo
+ data:
+   mongodb:
+     #host: 10.91.121.100
+     host: localhost
+     port: 27017
+     database: LDP-NG2
+     #database: WSDL-Gen
+     #database: LDP-NG2-Testing
+     #username: LDP-USER
+     #password: ENC(6QIBGMwDd7US7LjH4DVTRKyl9JbxAuy2)
+
+
+
+MQ:
+   host: 10.80.101.53
+   qmanager: QM_ACCPTBEMQ
+   channel: LDP.SVRCONN
+   port: 1414
+   maxConnections: 100
+   numUnusedConnections: 20
+   timeout: 86400000
+#loads the valueMap for different environments: for ACCPT put "ACCPT.", for PROD leave empty
+   MQEnvironmentMap:
+     ENV_PREFIX: ACCPT.
+   mqConnectionPoolLoadOnStartup: false
+
+
+ldp:
+ enableAudit: 1
+ ipFromReq: 1
+ realodUrlFromLdp: http://localhost:8080/reload
+ k300UploadFileUrl: http://localhost:8085/k300UploadFile/
+ k300GetFileGuidUrl: http://localhost:8085/k300getFileGuid/
+
+ #k300GetFileGuidUrl: http://localhost:8088/K300/FileController/getFileGuid
+ #k300UploadFileUrl: http://localhost:8088/K300/FileController/uploadFile
+
+
+jasypt.encryptor.password: master
